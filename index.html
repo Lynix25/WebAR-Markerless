@@ -31,7 +31,7 @@
         <div class="info-area">
             <div id="info"></div>
             <div id="console"></div>
-            <div>V 4.30</div>
+            <div>V 4.33</div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
                 <button id="right-button">Move Right</button>
@@ -140,7 +140,7 @@
                     xrButton.innerHTML = 'Enter AR';
                     xrButton.addEventListener('click', onButtonClicked);
                     document.getElementById('right-button').addEventListener('click', moveRight);
-                    document.addEventListener('mousedown', moveRight);
+                    // document.addEventListener('mousedown', moveRight);
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
@@ -216,7 +216,7 @@
                 // we'll be placing our object right where the reticle was
                 const pos = reticle.getWorldPosition();
                 scene.remove(reticle);
-                // model.position.set(pos.x, pos.y, pos.z);
+                model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
 
                 // start object animation right away
@@ -230,6 +230,7 @@
         function moveRight(){
             // pos = reticle.getWorldPosition();
             // model.position.set(pos.x + 1, pos.y + 1, pos.z + 1); 
+            model.rotateX(1)
             track("Right Clicked" + count);
             // console.log(model)
         }
@@ -270,9 +271,6 @@
             } else {  // do not show a reticle if no surfaces are intersected
                 reticle.visible = false;
             }
-            track(count);
-            count++;
-            model.rotateX(1);
             // update object animation
             updateAnimation();
             // bind our gl context that was created with WebXR to threejs renderer
