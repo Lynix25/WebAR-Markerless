@@ -6,7 +6,23 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
-    <link rel='stylesheet' href='css/style.css'>
+    <!-- <link rel='stylesheet' href='css/style.css'> -->
+
+    <style>
+        div.info-area {
+            z-index: 2;
+            background-color: rgba(255, 255, 255, 0.90);
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            width: 100px;
+            height: 35px;
+            margin: 15px;
+        }
+    </style>
+
     <title>Markerless AR</title>
 </head>
 
@@ -14,6 +30,7 @@
     <div id="overlay">
         <div class="info-area">
             <div id="info"></div>
+            <div id="console"></div>
             <button id="xr-button" disabled>XR not found</button>
         </div>
     </div>
@@ -31,6 +48,9 @@
         let action = null;
         let reticle = null;
         let lastFrame = Date.now();
+        let track = (message) => {
+            document.getElementById('console').innerHTML = message
+        };
 
         const initScene = (gl, session) => {
 
@@ -43,7 +63,7 @@
                 'wheel.glb',
                 (gltf) => {
                     model = gltf.scene;
-                    model.scale.set(3, 3, 3);
+                    model.scale.set(0.1, 0.1, 0.1);
                     // model.castShadow = true;
                     // model.receiveShadow = true;
                     // mixer = new THREE.AnimationMixer(model);
@@ -112,8 +132,9 @@
         function checkSupportedState() {
             navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
                 if (supported) {
-                    xrButton.innerHTML = 'Enter AR';
-                    xrButton.addEventListener('click', onButtonClicked);
+                    // xrButton.innerHTML = 'Enter AR';
+                    // xrButton.addEventListener('click', onButtonClicked);
+                    onButtonClicked();
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
@@ -163,7 +184,6 @@
             });
 
             document.getElementById("overlay").addEventListener('click', placeObject);
-            // document.addEventListener('click', placeObject);
             // initialize three.js scene
             initScene(gl, session);
         }
@@ -194,11 +214,14 @@
                 model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
 
+                model.addEventListener('click', () => {
+                    track('Model Clicked')
+                })
+
                 // start object animation right away
                 // toggleAnimation();
                 // instead of placing an object we will just toggle animation state
                 document.getElementById("overlay").removeEventListener('click', placeObject);
-                // document.removeEventListener('click', placeObject);
                 // document.getElementById("overlay").addEventListener('click', toggleAnimation);
             }
         }
@@ -245,7 +268,6 @@
             // bind our gl context that was created with WebXR to threejs renderer
             gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
             // render the scene
-            console.log(scene)
             renderer.render(scene, camera);
         }
 
