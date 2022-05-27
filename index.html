@@ -230,8 +230,7 @@
         function moveRight(){
             pos = reticle.getWorldPosition();
             model.position.set(pos.x + 1, pos.y + 1, pos.z + 1);
-            track(model.position);
-            count++;
+            // track(model.position);
             // console.log(model)
         }
 
@@ -271,7 +270,8 @@
             } else {  // do not show a reticle if no surfaces are intersected
                 reticle.visible = false;
             }
-
+            track(count);
+            count++;
             // update object animation
             updateAnimation();
             // bind our gl context that was created with WebXR to threejs renderer
