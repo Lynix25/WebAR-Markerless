@@ -50,6 +50,7 @@
         let mixer = null;
         let action = null;
         let reticle = null;
+        let count = 1;
         let lastFrame = Date.now();
         let track = (message) => {
             document.getElementById('console').innerHTML = message
@@ -137,7 +138,8 @@
                 if (supported) {
                     xrButton.innerHTML = 'Enter AR';
                     xrButton.addEventListener('click', onButtonClicked);
-                    document.getElementById('right-button').addEventListener('click', moveRight)
+                    document.getElementById('right-button').addEventListener('click', moveRight);
+                    document.addEventListener('mousedown', moveRight);
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
@@ -220,13 +222,15 @@
                 // toggleAnimation();
                 // instead of placing an object we will just toggle animation state
                 document.getElementById("overlay").removeEventListener('click', placeObject);
-
                 // document.getElementById("overlay").addEventListener('click', toggleAnimation);
             }
         }
 
         function moveRight(){
-            track("Klicked")
+            track("Klicked " + count);
+            model.translateX(1);
+            count++;
+            // console.log(model)
         }
 
         function toggleAnimation() {
