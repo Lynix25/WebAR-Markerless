@@ -132,9 +132,8 @@
         function checkSupportedState() {
             navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
                 if (supported) {
-                    // xrButton.innerHTML = 'Enter AR';
-                    // xrButton.addEventListener('click', onButtonClicked);
-                    onButtonClicked();
+                    xrButton.innerHTML = 'Enter AR';
+                    xrButton.addEventListener('click', onButtonClicked);
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
