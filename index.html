@@ -215,7 +215,7 @@
                 // we'll be placing our object right where the reticle was
                 const pos = reticle.getWorldPosition();
                 scene.remove(reticle);
-                model.position.set(pos.x+1, pos.y, pos.z);
+                model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
 
                 // start object animation right away
@@ -227,9 +227,9 @@
         }
 
         function moveRight(){
-            track("Klicked " + count);
-            reticle.translateX(0.1);
-            console.log(reticle.position);
+            pos = reticle.getWorldPosition();
+            model.position.set(pos.x, pos.y, pos.z);
+            track(model.position);
             count++;
             // console.log(model)
         }
