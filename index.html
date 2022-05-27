@@ -31,6 +31,7 @@
         <div class="info-area">
             <div id="info"></div>
             <div id="console"></div>
+            <div>V 4:15</div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
                 <button id="right-button">Move Right</button>
@@ -228,7 +229,7 @@
 
         function moveRight(){
             pos = reticle.getWorldPosition();
-            model.position.set(pos.x, pos.y, pos.z);
+            model.position.set(pos.x + 1, pos.y + 1, pos.z + 1);
             track(model.position);
             count++;
             // console.log(model)
