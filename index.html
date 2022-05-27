@@ -31,7 +31,10 @@
         <div class="info-area">
             <div id="info"></div>
             <div id="console"></div>
-            <button id="xr-button" disabled>XR not found</button>
+            <div style="background-color: aquamarine">
+                <button id="xr-button" disabled>XR not found</button>
+                <button onclick="moveRight()">Move Right</button>
+            </div>
         </div>
     </div>
 
@@ -203,7 +206,6 @@
 
         function placeObject() {
             if (reticle.visible && model) {
-                console.log("Place Object")
                 reticle.visible = false;
                 xrHitTestSource.cancel();
                 xrHitTestSource = null;
@@ -213,16 +215,17 @@
                 model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
 
-                model.addEventListener('click', () => {
-                    track('Model Clicked')
-                })
-
                 // start object animation right away
                 // toggleAnimation();
                 // instead of placing an object we will just toggle animation state
                 document.getElementById("overlay").removeEventListener('click', placeObject);
+
                 // document.getElementById("overlay").addEventListener('click', toggleAnimation);
             }
+        }
+
+        function moveRight(){
+            console.log(model)
         }
 
         function toggleAnimation() {
