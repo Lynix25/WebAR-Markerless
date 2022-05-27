@@ -33,7 +33,7 @@
             <div id="console"></div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
-                <button onclick="moveRight()">Move Right</button>
+                <button id="right-button">Move Right</button>
             </div>
         </div>
     </div>
@@ -137,6 +137,7 @@
                 if (supported) {
                     xrButton.innerHTML = 'Enter AR';
                     xrButton.addEventListener('click', onButtonClicked);
+                    document.getElementById('right-button').addEventListener('click', moveRight)
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
