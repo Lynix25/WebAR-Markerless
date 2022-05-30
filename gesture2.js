@@ -49,9 +49,10 @@ function gestureHandler(eventName, event, object) {
       scaleFactor = Math.min(
         Math.max(scaleFactor, minScale), maxScale);
 
-      object.scale.x = scaleFactor * initialScale.x;
-      object.scale.y = scaleFactor * initialScale.y;
-      object.scale.z = scaleFactor * initialScale.z;
+      // object.scale.x = scaleFactor * initialScale.x;
+      // object.scale.y = scaleFactor * initialScale.y;
+      // object.scale.z = scaleFactor * initialScale.z;
+      object.scale.set(scaleFactor * initialScale.x, scaleFactor * initialScale.y, scaleFactor * initialScale.z);
     }
   }
 }
