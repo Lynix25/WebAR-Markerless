@@ -12,6 +12,7 @@ function gestureHandler(eventName, event, object) {
   function init() {
     object.isVisible = true;
     object.scaleFactor = 1;
+    console.log(object);
   }
 
   init();
@@ -34,7 +35,7 @@ function gestureHandler(eventName, event, object) {
   }
 
   function handleScale() {
-    if (isVisible) {
+    if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
 
       scaleFactor = Math.min(
