@@ -1,5 +1,6 @@
 function track (message) {
-  document.getElementById('console').innerHTML = message
+  document.getElementById('console').innerHTML = message;
+  console.innerHTML = message;
 }
 
 function gestureHandler(eventName, event, object) {
