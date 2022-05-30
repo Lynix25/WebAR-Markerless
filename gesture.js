@@ -9,7 +9,7 @@ function track(message) {
       _.innerHTML = message;
       console.log(message);
     }
-  },500)
+  },50)
 }
 
 AFRAME.registerComponent("gesture-handler", {

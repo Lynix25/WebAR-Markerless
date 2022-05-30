@@ -1,14 +1,14 @@
-function track(message) {
+function track(message, flag = true) {
   let _;
-  
+
   let id = setInterval(() => {
     _ = document.getElementById("console");
-    if(_){
+    if (_) {
       clearInterval(id);
       _.innerHTML = message;
-      console.log(message);
+      if (flag) console.log(message);
     }
-  },500)
+  }, 500)
 }
 
 function gestureHandler(eventName, event, object) {
@@ -18,6 +18,7 @@ function gestureHandler(eventName, event, object) {
     maxScale = 8;
 
   function init() {
+    console.log("gesture handler")
     object.isVisible = true;
     object.scaleFactor = 1;
   }
@@ -57,12 +58,9 @@ function gestureHandler(eventName, event, object) {
 // Component that detects and emits events for touch gestures
 
 function gestureDetector(object, target) {
-  let element;
-
-  init();
-
+  init()
   function init() {
-    console.log("Gesture Detector Init");
+    console.log("gesture detector")
 
     object.internalState = {
       previousState: null
@@ -70,30 +68,27 @@ function gestureDetector(object, target) {
 
     // this.emitGestureEvent = this.emitGestureEvent.bind(this);
 
-    object.addEventListener("touchstart", (event) => {
-      emitGestureEvent(event);
-    });
+    // object.addEventListener("touchstart", (event) => {
+    //   emitGestureEvent(event);
+    // });
 
-    object.addEventListener("touchend", (event) => {
-      emitGestureEvent(event);
-    });
+    // object.addEventListener("touchend", (event) => {
+    //   emitGestureEvent(event);
+    // });
 
-    object.addEventListener("touchmove", (event) => {
-      emitGestureEvent(event);
-    });
+    // object.addEventListener("touchmove", (event) => {
+    //   emitGestureEvent(event);
+    // });
+    object.addEventListener("touchstart", emitGestureEvent);
+
+    object.addEventListener("touchend", emitGestureEvent);
+
+    object.addEventListener("touchmove", emitGestureEvent);
   }
-
-  // remove: function () {
-  //   this.targetElement.removeEventListener("touchstart", this.emitGestureEvent);
-
-  //   this.targetElement.removeEventListener("touchend", this.emitGestureEvent);
-
-  //   this.targetElement.removeEventListener("touchmove", this.emitGestureEvent);
-  // },
 
   function emitGestureEvent(event) {
     const currentState = getTouchState(event);
-    
+
     const previousState = object.internalState.previousState;
 
     const gestureContinues =

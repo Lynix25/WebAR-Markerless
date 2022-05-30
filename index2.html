@@ -7,8 +7,6 @@
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
 
-    <script src="gesture v2.js"></script>
-
     <style>
         div.info-area {
             z-index: 2;
@@ -41,9 +39,10 @@
     </div>
 
     <script type="module">
-        import * as THREE from './three.js/build/three.module.js';
-        import { GLTFLoader } from './three.js/examples/jsm/loaders/GLTFLoader.js'
-
+        import * as THREE from './three/build/three.module.js';
+        import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls, MapControls } from './three/examples/jsm/controls/OrbitControls.js';
+        
         let renderer = null;
         let scene = null;
         let camera = null;
@@ -53,20 +52,17 @@
         let reticle = null;
         let count = 1;
         let lastFrame = Date.now();
-        let console = document.getElementById("console");
-
-        console.innerHTML = "Start";
 
         const initScene = (gl, session) => {
 
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-            let manager = new THREE.LoadingManager()
-            manager.onLoad = () => {
-                gestureDetector(document, model);
-            }
-            var loader = new GLTFLoader(manager);
+            // let manager = new THREE.LoadingManager()
+            // manager.onLoad = () => {
+            //     gestureDetector(document, model);
+            //     console.log(model)
+            // }
+            var loader = new GLTFLoader();
             loader.load(
                 'wheel.glb',
                 (gltf) => {
@@ -100,6 +96,8 @@
             renderer.xr.enabled = true;
             renderer.xr.setReferenceSpaceType('local');
             renderer.xr.setSession(session);
+
+            var controls = new OrbitControls(camera, renderer.domElement)
 
             // simple sprite to indicate detected surfaces
             reticle = new THREE.Mesh(
@@ -219,6 +217,7 @@
                 xrHitTestSource = null;
                 // we'll be placing our object right where the reticle was
                 const pos = reticle.getWorldPosition();
+
                 scene.remove(reticle);
                 model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
