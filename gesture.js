@@ -120,7 +120,7 @@ AFRAME.registerComponent("gesture-detector", {
 
   emitGestureEvent(event) {
     const currentState = this.getTouchState(event);
-    
+    track(currentState.touchCount);
     const previousState = this.internalState.previousState;
     
     const gestureContinues =
@@ -136,7 +136,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(previousState.touchCount) + "fingerend";
 
-        track(eventName);
+        // track(eventName);
       this.el.emit(eventName, previousState);
 
       this.internalState.previousState = null;
@@ -152,7 +152,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingerstart";
 
-        track(eventName);
+        // track(eventName);
       this.el.emit(eventName, currentState);
 
       this.internalState.previousState = currentState;
@@ -182,7 +182,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingermove";
 
-        track(eventName);
+        // track(eventName);
       this.el.emit(eventName, eventDetail);
     }
   },

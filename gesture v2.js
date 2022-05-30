@@ -12,7 +12,6 @@ function gestureHandler(eventName, event, object) {
   function init() {
     object.isVisible = true;
     object.scaleFactor = 1;
-    console.log(object);
   }
 
   init();
@@ -92,7 +91,7 @@ function gestureDetector(object, target) {
 
   function emitGestureEvent(event) {
     const currentState = getTouchState(event);
-
+    track(currentState.touchCount);
     const previousState = object.internalState.previousState;
 
     const gestureContinues =
