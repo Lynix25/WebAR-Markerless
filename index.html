@@ -10,7 +10,6 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="gesture.js"></script>
-    <script src="gesture v2.js"></script>
 
     <style>
         div.info-area {
@@ -34,10 +33,14 @@
     <div id="overlay" style="z-index: 10;">
         <div class="info-area">
             <div id="info"></div>
-            <div>V 3</div>
+            <div>V 4</div>
             <div id="console"></div>
         </div>
     </div>
+
+    <script>
+        track("start");
+    </script>
 
     <a-scene id="canvas" renderer="logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false" gesture-detector>
         <a-entity id="Camera" camera position="0 0 1">
