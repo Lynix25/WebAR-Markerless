@@ -17,13 +17,14 @@ function gestureHandler(eventName, event, object) {
     minScale = 0.3,
     maxScale = 8;
 
+  init();
+
   function init() {
-    console.log("gesture handler")
     object.isVisible = true;
     object.scaleFactor = 1;
   }
 
-  init();
+  track(eventName);
 
   if (eventName == "onefingermove") {
     handleRotation();
@@ -57,7 +58,7 @@ function gestureHandler(eventName, event, object) {
 
 // Component that detects and emits events for touch gestures
 
-function gestureDetector(object, target) {
+export function gestureDetector(object, target) {
   init()
   function init() {
     console.log("gesture detector")
@@ -66,19 +67,6 @@ function gestureDetector(object, target) {
       previousState: null
     };
 
-    // this.emitGestureEvent = this.emitGestureEvent.bind(this);
-
-    // object.addEventListener("touchstart", (event) => {
-    //   emitGestureEvent(event);
-    // });
-
-    // object.addEventListener("touchend", (event) => {
-    //   emitGestureEvent(event);
-    // });
-
-    // object.addEventListener("touchmove", (event) => {
-    //   emitGestureEvent(event);
-    // });
     object.addEventListener("touchstart", emitGestureEvent);
 
     object.addEventListener("touchend", emitGestureEvent);
@@ -146,8 +134,7 @@ function gestureDetector(object, target) {
       Object.assign(eventDetail, previousState);
 
       const eventName = getEventPrefix(currentState.touchCount) + "fingermove";
-      track(currentState.touchCount);
-      // this.el.emit(eventName, eventDetail); IMPORTANT
+
       gestureHandler(eventName, eventDetail, target);
     }
   }

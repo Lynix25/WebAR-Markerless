@@ -42,6 +42,7 @@
         import * as THREE from './three/build/three.module.js';
         import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
         import { OrbitControls, MapControls } from './three/examples/jsm/controls/OrbitControls.js';
+        import { gestureDetector } from './gesture2.js'
         
         let renderer = null;
         let scene = null;
@@ -57,12 +58,11 @@
 
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            // let manager = new THREE.LoadingManager()
-            // manager.onLoad = () => {
-            //     gestureDetector(document, model);
-            //     console.log(model)
-            // }
-            var loader = new GLTFLoader();
+            let manager = new THREE.LoadingManager()
+            manager.onLoad = () => {
+                gestureDetector(document, model);
+            }
+            var loader = new GLTFLoader(manager);
             loader.load(
                 'wheel.glb',
                 (gltf) => {
