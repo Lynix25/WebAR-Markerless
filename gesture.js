@@ -1,14 +1,15 @@
 /* global AFRAME, THREE */
 function track(message) {
-  let _ = document.getElementById("console");
-  console.log(_);
-
+  let _;
+  
   let id = setInterval(() => {
-    if(document.getElementById("console")){
+    _ = document.getElementById("console");
+    if(_){
       clearInterval(id);
-      document.getElementById("console").innerHTML = message;
+      _.innerHTML = message;
+      console.log(message);
     }
-  })
+  },500)
 }
 
 AFRAME.registerComponent("gesture-handler", {
@@ -26,14 +27,6 @@ AFRAME.registerComponent("gesture-handler", {
     this.isVisible = true;
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
-
-    // this.el.sceneEl.addEventListener("markerFound", (e) => {
-    //   this.isVisible = true;
-    // });
-
-    // this.el.sceneEl.addEventListener("markerLost", (e) => {
-    //   this.isVisible = false;
-    // });
   },
 
   update: function () {
@@ -120,24 +113,23 @@ AFRAME.registerComponent("gesture-detector", {
 
   emitGestureEvent(event) {
     const currentState = this.getTouchState(event);
-    track(currentState.touchCount);
-    const previousState = this.internalState.previousState;
+    
+    const previousState = this.internalState.previousState; //state pertamakali
     
     const gestureContinues =
       previousState &&
       currentState &&
       currentState.touchCount == previousState.touchCount;
-      
+    
     const gestureEnded = previousState && !gestureContinues;
-
+    
     const gestureStarted = currentState && !gestureContinues;
-
+    
     if (gestureEnded) {
       const eventName =
         this.getEventPrefix(previousState.touchCount) + "fingerend";
 
-        // track(eventName);
-      this.el.emit(eventName, previousState);
+      // this.el.emit(eventName, previousState);
 
       this.internalState.previousState = null;
     }
@@ -152,8 +144,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingerstart";
 
-        // track(eventName);
-      this.el.emit(eventName, currentState);
+      // this.el.emit(eventName, currentState);
 
       this.internalState.previousState = currentState;
     }
@@ -181,8 +172,7 @@ AFRAME.registerComponent("gesture-detector", {
 
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingermove";
-
-        // track(eventName);
+      track(currentState.touchCount)
       this.el.emit(eventName, eventDetail);
     }
   },

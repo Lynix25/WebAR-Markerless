@@ -1,6 +1,14 @@
-function track (message) {
-  document.getElementById('console').innerHTML = message;
-  console.innerHTML = message;
+function track(message) {
+  let _;
+  
+  let id = setInterval(() => {
+    _ = document.getElementById("console");
+    if(_){
+      clearInterval(id);
+      _.innerHTML = message;
+      console.log(message);
+    }
+  },500)
 }
 
 function gestureHandler(eventName, event, object) {
@@ -22,7 +30,6 @@ function gestureHandler(eventName, event, object) {
   else if (eventName == "twofingermove") {
     handleScale();
   }
-  track(eventName)
 
   function handleRotation() {
     if (object.isVisible) {
@@ -55,12 +62,7 @@ function gestureDetector(object, target) {
   init();
 
   function init() {
-    // this.targetElement =
-    //   this.data.element && document.querySelector(this.data.element);
-
-    // if (!this.targetElement) {
-    //   this.targetElement = this.el;
-    // }
+    console.log("Gesture Detector Init");
 
     object.internalState = {
       previousState: null
@@ -69,15 +71,15 @@ function gestureDetector(object, target) {
     // this.emitGestureEvent = this.emitGestureEvent.bind(this);
 
     object.addEventListener("touchstart", (event) => {
-      emitGestureEvent(event)
+      emitGestureEvent(event);
     });
 
     object.addEventListener("touchend", (event) => {
-      emitGestureEvent(event)
+      emitGestureEvent(event);
     });
 
     object.addEventListener("touchmove", (event) => {
-      emitGestureEvent(event)
+      emitGestureEvent(event);
     });
   }
 
@@ -91,7 +93,7 @@ function gestureDetector(object, target) {
 
   function emitGestureEvent(event) {
     const currentState = getTouchState(event);
-    track(currentState.touchCount);
+    
     const previousState = object.internalState.previousState;
 
     const gestureContinues =
@@ -107,7 +109,7 @@ function gestureDetector(object, target) {
       const eventName = getEventPrefix(previousState.touchCount) + "fingerend";
 
       // this.el.emit(eventName, previousState); IMPORTANT
-      gestureHandler(eventName, previousState, target);
+      // gestureHandler(eventName, previousState, target);
 
       object.internalState.previousState = null;
     }
@@ -122,7 +124,7 @@ function gestureDetector(object, target) {
       const eventName = getEventPrefix(currentState.touchCount) + "fingerstart";
 
       // this.el.emit(eventName, currentState); IMPORTANT
-      gestureHandler(eventName, currentState, target);
+      // gestureHandler(eventName, currentState, target);
 
       object.internalState.previousState = currentState;
     }
@@ -149,7 +151,7 @@ function gestureDetector(object, target) {
       Object.assign(eventDetail, previousState);
 
       const eventName = getEventPrefix(currentState.touchCount) + "fingermove";
-
+      track(currentState.touchCount);
       // this.el.emit(eventName, eventDetail); IMPORTANT
       gestureHandler(eventName, eventDetail, target);
     }
