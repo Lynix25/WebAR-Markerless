@@ -1,4 +1,15 @@
 /* global AFRAME, THREE */
+function track(message) {
+  let _ = document.getElementById("console");
+  console.log(_);
+
+  let id = setInterval(() => {
+    if(document.getElementById("console")){
+      clearInterval(id);
+      document.getElementById("console").innerHTML = message;
+    }
+  })
+}
 
 AFRAME.registerComponent("gesture-handler", {
   schema: {
@@ -36,7 +47,6 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   remove: function () {
-    alert(this, "removed")
     this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
     this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
   },
@@ -126,6 +136,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(previousState.touchCount) + "fingerend";
 
+        track(eventName);
       this.el.emit(eventName, previousState);
 
       this.internalState.previousState = null;
@@ -141,6 +152,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingerstart";
 
+        track(eventName);
       this.el.emit(eventName, currentState);
 
       this.internalState.previousState = currentState;
@@ -170,6 +182,7 @@ AFRAME.registerComponent("gesture-detector", {
       const eventName =
         this.getEventPrefix(currentState.touchCount) + "fingermove";
 
+        track(eventName);
       this.el.emit(eventName, eventDetail);
     }
   },
