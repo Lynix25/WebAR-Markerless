@@ -32,7 +32,7 @@
         <div class="info-area">
             <div id="info"></div>
             <div id="console"></div>
-            <div>V 4.33</div>
+            <div>V 1</div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
                 <button id="right-button">Move Right</button>
@@ -53,9 +53,6 @@
         let reticle = null;
         let count = 1;
         let lastFrame = Date.now();
-        let track = (message) => {
-            document.getElementById('console').innerHTML = message
-        };
 
         const initScene = (gl, session) => {
 

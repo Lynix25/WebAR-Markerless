@@ -1,3 +1,7 @@
+function track (message) {
+  document.getElementById('console').innerHTML = message
+}
+
 function gestureHandler(eventName, event, object) {
   let enabled = true,
     rotationFactor = 5,
@@ -17,6 +21,7 @@ function gestureHandler(eventName, event, object) {
   else if (eventName == "twofingermove") {
     handleScale();
   }
+  track(eventName)
 
   function handleRotation() {
     if (object.isVisible) {
