@@ -6,7 +6,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
-    <!-- <link rel='stylesheet' href='css/style.css'> -->
+
+    <script src="gesture v2.js"></script>
 
     <style>
         div.info-area {
@@ -40,7 +41,6 @@
     </div>
 
     <script type="module">
-
         import * as THREE from './three.js/build/three.module.js';
         import { GLTFLoader } from './three.js/examples/jsm/loaders/GLTFLoader.js'
 
@@ -62,8 +62,11 @@
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-            // load our gltf model
-            var loader = new GLTFLoader();
+            let manager = new THREE.LoadingManager()
+            manager.onLoad = () => {
+                gestureDetector(document, model);
+            }
+            var loader = new GLTFLoader(manager);
             loader.load(
                 'wheel.glb',
                 (gltf) => {
@@ -79,6 +82,7 @@
                 (error) => console.error(error)
             );
 
+            
             var light = new THREE.PointLight(0xffffff, 2, 100); // soft white light
             light.position.z = 1;
             light.position.y = 5;
@@ -140,7 +144,6 @@
                     xrButton.innerHTML = 'Enter AR';
                     xrButton.addEventListener('click', onButtonClicked);
                     document.getElementById('right-button').addEventListener('click', moveRight);
-                    // document.addEventListener('mousedown', moveRight);
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
@@ -190,6 +193,7 @@
             });
 
             document.getElementById("overlay").addEventListener('click', placeObject);
+            document.addEventListener('keypress', placeObject);
             // initialize three.js scene
             initScene(gl, session);
         }
@@ -218,16 +222,21 @@
                 scene.remove(reticle);
                 model.position.set(pos.x, pos.y, pos.z);
                 scene.add(model);
-
                 // start object animation right away
                 // toggleAnimation();
                 // instead of placing an object we will just toggle animation state
                 document.getElementById("overlay").removeEventListener('click', placeObject);
+                document.removeEventListener('keypress', placeObject);
                 // document.getElementById("overlay").addEventListener('click', toggleAnimation);
             }
         }
 
-        function moveRight(){
+        function rotateModel(m) {
+            console.log("Model Rotate");
+            m.rotateX(2);
+        }
+
+        function moveRight() {
             // pos = reticle.getWorldPosition();
             // model.position.set(pos.x + 1, pos.y + 1, pos.z + 1); 
             model.rotateX(1)
