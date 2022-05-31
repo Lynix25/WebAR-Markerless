@@ -42,7 +42,7 @@ function gestureHandler(eventName, event, object) {
   }
 
   function handleScale() {
-    track("Scale Handlerrrrrrr");
+    // track("Scale Handlerrrrrrr");
     if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
       track("Scale Handle");
