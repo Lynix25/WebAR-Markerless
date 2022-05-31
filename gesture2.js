@@ -42,8 +42,7 @@ function gestureHandler(eventName, event, object) {
   }
 
   function handleScale() {
-    // track("Scale Handlerrrrrrr");
-    if (object.isVisible) {
+    // if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
       track("Scale Handle");
       scaleFactor = Math.min(
@@ -53,10 +52,7 @@ function gestureHandler(eventName, event, object) {
       // object.scale.y = scaleFactor * initialScale.y;
       // object.scale.z = scaleFactor * initialScale.z;
       object.scale.set(scaleFactor * initialScale.x, scaleFactor * initialScale.y, scaleFactor * initialScale.z);
-    }
-    else{
-      track("not visible");
-    }
+  // }
   }
 }
 
