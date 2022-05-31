@@ -1,14 +1,14 @@
-function track(message, place = "console", flag = true) {
-  let _;
+let _
+let id = setInterval(() => {
+  _ = document.getElementById("console");
+  if (_) {
+    clearInterval(id);
+  }
+}, 50)
 
-  let id = setInterval(() => {
-    _ = document.getElementById(place);
-    if (_) {
-      clearInterval(id);
-      _.innerHTML = message;
-      if (flag) console.log(message);
-    }
-  }, 50)
+function track(message, flag = true) {
+  _.innerHTML = message;
+  if (flag) console.log(message);
 }
 
 function gestureHandler(eventName, event, object) {
@@ -24,13 +24,13 @@ function gestureHandler(eventName, event, object) {
     object.scaleFactor = 1;
   }
 
-  
+  track(eventName);
   if (eventName == "onefingermove") {
     handleRotation();
   }
   else if (eventName == "twofingermove") {
     handleScale();
-    track("Scale Implement")
+    track("Scale Implement");
   }
 
   function handleRotation() {
