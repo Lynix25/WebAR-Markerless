@@ -24,8 +24,7 @@ function gestureHandler(eventName, event, object) {
     object.scaleFactor = 1;
   }
 
-  track(eventName);
-
+  
   if (eventName == "onefingermove") {
     handleRotation();
   }
@@ -41,12 +40,12 @@ function gestureHandler(eventName, event, object) {
       object.rotateX(temp_y * rotationFactor)
     }
   }
-  
+
   function handleScale() {
-    track("Scale Handlerrrrrrr", "console2");
+    track("Scale Handlerrrrrrr");
     if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
-      track("Scale Handle", "console2");
+      track("Scale Handle");
       scaleFactor = Math.min(
         Math.max(scaleFactor, minScale), maxScale);
 
@@ -54,6 +53,9 @@ function gestureHandler(eventName, event, object) {
       // object.scale.y = scaleFactor * initialScale.y;
       // object.scale.z = scaleFactor * initialScale.z;
       object.scale.set(scaleFactor * initialScale.x, scaleFactor * initialScale.y, scaleFactor * initialScale.z);
+    }
+    else{
+      track("not visible");
     }
   }
 }
