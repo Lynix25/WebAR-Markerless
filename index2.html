@@ -29,7 +29,7 @@
     <div id="overlay">
         <div class="info-area">
             <div id="info"></div>
-            <div>V 2</div>
+            <div>V 1</div>
             <div id="console"></div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
@@ -452,12 +452,12 @@
 
             function handleScale() {
                 if (object.isVisible) {
-                    _.innerHTML = Object.getOwnPropertyNames(event);
-                    scaleFactor *= 1 + event.spreadChange / event.startSpread;
+                    _.innerHTML = Object.getOwnPropertyNames(event.spreadChange);
+                    object.scaleFactor *= 1 + event.spreadChange / event.startSpread;
                     _.innerHTML = "Check 2";
-                    scaleFactor = Math.min(Math.max(scaleFactor, minScale), maxScale);
+                    object.scaleFactor = Math.min(Math.max(object.scaleFactor, minScale), maxScale);
                     _.innerHTML = "Check 3";
-                    object.scale.set(scaleFactor * initialScale.x, scaleFactor * initialScale.y, scaleFactor * initialScale.z);
+                    object.scale.set(object.scaleFactor * initialScale.x, object.scaleFactor * initialScale.y, object.scaleFactor * initialScale.z);
                     _.innerHTML = `SCALE ${object.scale.x} ${object.scale.y} ${object.scale.z}`;
                 }
             }
