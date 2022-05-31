@@ -428,7 +428,6 @@
         };
 
         function gestureHandler(eventName, event, object) {
-            console.log(eventName);
             let enabled = true,
                 rotationFactor = 5,
                 minScale = 0.3,
@@ -442,17 +441,18 @@
             }
 
             function handleRotation() {
+                console.log(event)
                 if (object.isVisible) {
-                    let temp_x = event.positionChange.x
-                    let temp_y = event.positionChange.y
-                    object.rotateY(temp_x * rotationFactor)
-                    object.rotateX(temp_y * rotationFactor)
+                    let temp_x = event.positionChange.x;
+                    let temp_y = event.positionChange.y;
+                    object.rotateY(temp_x * rotationFactor);
+                    object.rotateX(temp_y * rotationFactor);
                 }
             }
 
             function handleScale() {
                 if (object.isVisible) {
-                    _.innerHTML = event;
+                    _.innerHTML = Object.getOwnPropertyNames(event);
                     scaleFactor *= 1 + event.spreadChange / event.startSpread;
                     _.innerHTML = "Check 2";
                     scaleFactor = Math.min(Math.max(scaleFactor, minScale), maxScale);
