@@ -30,6 +30,7 @@ function gestureHandler(eventName, event, object) {
   }
   else if (eventName == "twofingermove") {
     handleScale();
+    track("Scale Implement")
   }
 
   function handleRotation() {
