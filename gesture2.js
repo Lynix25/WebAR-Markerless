@@ -1,4 +1,4 @@
-function track(message, place = "console",flag = true) {
+function track(message, place = "console", flag = true) {
   let _;
 
   let id = setInterval(() => {
@@ -41,8 +41,9 @@ function gestureHandler(eventName, event, object) {
       object.rotateX(temp_y * rotationFactor)
     }
   }
-
+  
   function handleScale() {
+    track("Scale Handlerrrrrrr", "console2");
     if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
       track("Scale Handle", "console2");

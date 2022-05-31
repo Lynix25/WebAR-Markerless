@@ -29,7 +29,7 @@
     <div id="overlay">
         <div class="info-area">
             <div id="info"></div>
-            <div id="console2">V 1</div>
+            <div id="console2">V 2</div>
             <div id="console"></div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
@@ -141,7 +141,10 @@
                 if (supported) {
                     xrButton.innerHTML = 'Enter AR';
                     xrButton.addEventListener('click', onButtonClicked);
-                    document.getElementById('right-button').addEventListener('click', moveRight);
+                    document.getElementById('right-button').addEventListener('click', () => {
+                        model.scale.set(model.scale.x += count/10, model.scale.x += count/10, model.scale.x += count/10);
+                        count++;
+                    });
                 } else {
                     xrButton.innerHTML = 'AR not found';
                 }
@@ -228,10 +231,6 @@
                 document.removeEventListener('keypress', placeObject);
                 // document.getElementById("overlay").addEventListener('click', toggleAnimation);
             }
-        }
-
-        function moveRight() {
-            model.rotateX(1)
         }
 
         function toggleAnimation() {
