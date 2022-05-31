@@ -452,7 +452,7 @@
 
             function handleScale() {
                 if (object.isVisible) {
-                    _.innerHTML = "Check 1";
+                    _.innerHTML = event;
                     scaleFactor *= 1 + event.spreadChange / event.startSpread;
                     _.innerHTML = "Check 2";
                     scaleFactor = Math.min(Math.max(scaleFactor, minScale), maxScale);
