@@ -29,7 +29,7 @@
     <div id="overlay">
         <div class="info-area">
             <div id="info"></div>
-            <div>V 1</div>
+            <div id="console2">V 1</div>
             <div id="console"></div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
@@ -43,7 +43,7 @@
         import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
         import { OrbitControls, MapControls } from './three/examples/jsm/controls/OrbitControls.js';
         import { gestureDetector } from './gesture2.js'
-        
+
         let renderer = null;
         let scene = null;
         let camera = null;
@@ -78,7 +78,7 @@
                 (error) => console.error(error)
             );
 
-            
+
             var light = new THREE.PointLight(0xffffff, 2, 100); // soft white light
             light.position.z = 1;
             light.position.y = 5;
@@ -230,17 +230,8 @@
             }
         }
 
-        function rotateModel(m) {
-            console.log("Model Rotate");
-            m.rotateX(2);
-        }
-
         function moveRight() {
-            // pos = reticle.getWorldPosition();
-            // model.position.set(pos.x + 1, pos.y + 1, pos.z + 1); 
             model.rotateX(1)
-            track("Right Clicked" + count);
-            // console.log(model)
         }
 
         function toggleAnimation() {

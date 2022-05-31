@@ -1,14 +1,14 @@
-function track(message, flag = true) {
+function track(message, place = "console",flag = true) {
   let _;
 
   let id = setInterval(() => {
-    _ = document.getElementById("console");
+    _ = document.getElementById(place);
     if (_) {
       clearInterval(id);
       _.innerHTML = message;
       if (flag) console.log(message);
     }
-  }, 500)
+  }, 50)
 }
 
 function gestureHandler(eventName, event, object) {
@@ -45,7 +45,7 @@ function gestureHandler(eventName, event, object) {
   function handleScale() {
     if (object.isVisible) {
       scaleFactor *= 1 + event.spreadChange / event.startSpread;
-
+      track("Scale Handle", "console2");
       scaleFactor = Math.min(
         Math.max(scaleFactor, minScale), maxScale);
 
