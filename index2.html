@@ -29,7 +29,7 @@
     <div id="overlay">
         <div class="info-area">
             <div id="info"></div>
-            <div>V 1</div>
+            <div>V 2</div>
             <div id="console"></div>
             <div style="background-color: aquamarine">
                 <button id="xr-button" disabled>XR not found</button>
@@ -295,6 +295,7 @@
 
             target.isVisible = true;
             target.scaleFactor = 1;
+            target.initialScale = target.scale.clone();
 
             // ===== Initial States END =====
 
@@ -457,7 +458,7 @@
                     _.innerHTML = "Check 2";
                     object.scaleFactor = Math.min(Math.max(object.scaleFactor, minScale), maxScale);
                     _.innerHTML = "Check 3";
-                    object.scale.set(object.scaleFactor * initialScale.x, object.scaleFactor * initialScale.y, object.scaleFactor * initialScale.z);
+                    object.scale.set(object.scaleFactor * object.initialScale.x, object.scaleFactor * object.initialScale.y, object.scaleFactor * object.initialScale.z);
                     _.innerHTML = `SCALE ${object.scale.x} ${object.scale.y} ${object.scale.z}`;
                 }
             }
